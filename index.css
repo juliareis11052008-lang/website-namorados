@@ -1,4 +1,5 @@
-/* RESET + GLOBAL */
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
 * {
     margin: 0;
     padding: 0;
@@ -11,13 +12,9 @@ body {
     min-height: 100vh;
     color: #f5e6f0;
     overflow-x: hidden;
-    position: relative;
 }
 
-/* Importação da fonte Pacifico para a frase do xadrez */
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
-
-/* PARTÍCULAS DE CORAÇÃO (flutuantes) */
+/* PARTÍCULAS FLUTUANTES */
 .heart-particles {
     position: fixed;
     top: 0;
@@ -40,20 +37,10 @@ body {
 }
 
 @keyframes floatHeart {
-    0% {
-        transform: translateY(100vh) rotate(0deg);
-        opacity: 0;
-    }
-    10% {
-        opacity: 0.8;
-    }
-    90% {
-        opacity: 0.6;
-    }
-    100% {
-        transform: translateY(-20vh) rotate(360deg);
-        opacity: 0;
-    }
+    0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.8; }
+    90% { opacity: 0.6; }
+    100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
 }
 
 /* GLASSMORPHISM */
@@ -193,37 +180,39 @@ button:hover {
     min-height: 2.5rem;
 }
 
-/* CONTEÚDO PRINCIPAL */
 .main-content {
     max-width: 1400px;
     margin: 0 auto;
     padding: 1.5rem;
     position: relative;
     z-index: 2;
-    transition: all 0.4s;
 }
 
 .hidden {
     display: none;
 }
 
+/* HEADER E TÍTULO */
 .romantic-header {
     text-align: center;
     margin: 1rem 0 2rem;
 }
 
 .romantic-header h1 {
-    font-size: clamp(1.4rem, 6vw, 2.5rem);
+    font-size: clamp(1.3rem, 6vw, 2.5rem);
     background: linear-gradient(135deg, #ffe6f0, #ffb6c1);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
     text-shadow: 0 0 15px rgba(255,105,180,0.5);
     letter-spacing: 1px;
+    display: inline-block;
     white-space: pre-wrap;
     word-break: break-word;
+    padding-right: 4px;
 }
 
+/* GIF */
 .gif-container {
     margin: 1.5rem auto;
     max-width: 480px;
@@ -266,12 +255,11 @@ button:hover {
     color: #ffc0cb;
 }
 
-/* SEÇÃO JOGOS */
+/* JOGOS */
 .game-section {
     margin: 2.5rem auto;
     padding: 1.8rem;
     max-width: 1100px;
-    transition: all 0.3s;
 }
 
 .game-section h2 {
@@ -280,11 +268,11 @@ button:hover {
     margin-bottom: 0.8rem;
 }
 
-/* Frase do xadrez estilizada */
-.chess-instruction {
+/* FRASE DO XADREZ ESTILIZADA (centralizada e fonte fofa) */
+.game-section:first-of-type p {
     text-align: center;
     font-family: 'Pacifico', 'Comic Neue', cursive;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     background: linear-gradient(135deg, #ffb6c1, #ff69b4);
     background-clip: text;
     -webkit-background-clip: text;
@@ -301,7 +289,7 @@ button:hover {
     min-height: 3rem;
 }
 
-/* TABULEIRO DE XADREZ */
+/* TABULEIRO XADREZ */
 .chessboard-container {
     display: flex;
     justify-content: center;
@@ -311,8 +299,8 @@ button:hover {
 .chessboard {
     display: grid;
     grid-template-columns: repeat(8, 1fr);
-    width: min(70vh, 80vw);
-    height: min(70vh, 80vw);
+    width: min(70vh, 70vw);
+    height: min(70vh, 70vw);
     background-color: #2c1a2c;
     border: 4px solid #ff99cc;
     border-radius: 12px;
@@ -327,7 +315,6 @@ button:hover {
     font-size: 2rem;
     cursor: pointer;
     transition: 0.1s linear;
-    background-size: cover;
     text-shadow: 0 0 3px black;
 }
 
@@ -344,9 +331,6 @@ button:hover {
     transform: scale(0.98);
 }
 
-.chess-square.possible-move {
-    position: relative;
-}
 .chess-square.possible-move::after {
     content: "●";
     font-size: 1.4rem;
@@ -355,19 +339,22 @@ button:hover {
     position: absolute;
 }
 
-/* CUBO MÁGICO 3D */
+/* CUBO MÁGICO - VERSÃO CORRIGIDA, MENOR E TOTALMENTE VISÍVEL */
 .cube-wrapper {
-    perspective: 1200px;
-    perspective-origin: 50% 50%;
     display: flex;
     justify-content: center;
-    margin: 1.5rem 0 1rem;
+    align-items: center;
+    margin: 1rem auto;
+    padding: 1rem;
+    perspective: 800px;
+    width: 100%;
+    overflow: visible; /* Não corta o cubo */
 }
 
 .rubiks-cube {
-    width: 300px;
-    height: 300px;
     position: relative;
+    width: 240px;
+    height: 240px;
     transform-style: preserve-3d;
     transform: rotateX(-20deg) rotateY(30deg);
     transition: transform 0.3s;
@@ -375,27 +362,71 @@ button:hover {
 
 .cubie {
     position: absolute;
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
     transform-style: preserve-3d;
     transition: all 0.2s ease;
 }
 
-.face {
+.cubie .face {
     position: absolute;
-    width: 98px;
-    height: 98px;
+    width: 78px;
+    height: 78px;
     border: 1px solid rgba(0,0,0,0.2);
-    box-shadow: inset 0 0 4px rgba(255,255,255,0.5);
     border-radius: 8px;
+    box-shadow: inset 0 0 4px rgba(255,255,255,0.5);
 }
 
-.cubie .front  { transform: translateZ(50px); }
-.cubie .back   { transform: rotateY(180deg) translateZ(50px); }
-.cubie .right  { transform: rotateY(90deg) translateZ(50px); }
-.cubie .left   { transform: rotateY(-90deg) translateZ(50px); }
-.cubie .top    { transform: rotateX(90deg) translateZ(50px); }
-.cubie .bottom { transform: rotateX(-90deg) translateZ(50px); }
+/* Posicionamento das faces (valores fixos em px para evitar distorção) */
+.cubie .front  { transform: translateZ(40px); }
+.cubie .back   { transform: rotateY(180deg) translateZ(40px); }
+.cubie .right  { transform: rotateY(90deg) translateZ(40px); }
+.cubie .left   { transform: rotateY(-90deg) translateZ(40px); }
+.cubie .top    { transform: rotateX(90deg) translateZ(40px); }
+.cubie .bottom { transform: rotateX(-90deg) translateZ(40px); }
+
+/* Responsividade do cubo: diminui em telas pequenas */
+@media (max-width: 768px) {
+    .rubiks-cube {
+        width: 180px;
+        height: 180px;
+    }
+    .cubie {
+        width: 60px;
+        height: 60px;
+    }
+    .cubie .face {
+        width: 58px;
+        height: 58px;
+    }
+    .cubie .front  { transform: translateZ(30px); }
+    .cubie .back   { transform: rotateY(180deg) translateZ(30px); }
+    .cubie .right  { transform: rotateY(90deg) translateZ(30px); }
+    .cubie .left   { transform: rotateY(-90deg) translateZ(30px); }
+    .cubie .top    { transform: rotateX(90deg) translateZ(30px); }
+    .cubie .bottom { transform: rotateX(-90deg) translateZ(30px); }
+}
+
+@media (max-width: 480px) {
+    .rubiks-cube {
+        width: 150px;
+        height: 150px;
+    }
+    .cubie {
+        width: 50px;
+        height: 50px;
+    }
+    .cubie .face {
+        width: 48px;
+        height: 48px;
+    }
+    .cubie .front  { transform: translateZ(25px); }
+    .cubie .back   { transform: rotateY(180deg) translateZ(25px); }
+    .cubie .right  { transform: rotateY(90deg) translateZ(25px); }
+    .cubie .left   { transform: rotateY(-90deg) translateZ(25px); }
+    .cubie .top    { transform: rotateX(90deg) translateZ(25px); }
+    .cubie .bottom { transform: rotateX(-90deg) translateZ(25px); }
+}
 
 .cube-controls {
     display: flex;
@@ -415,139 +446,46 @@ button:hover {
     box-shadow: 0 0 8px deeppink;
 }
 
+/* INSTRUÇÃO DO CUBO */
 .cube-instruction {
     text-align: center;
-    margin-top: 1.2rem;
+    margin-top: 1rem;
     font-size: 0.9rem;
     color: #ffc0cb;
     background-color: rgba(0,0,0,0.4);
-    padding: 0.6rem;
+    padding: 0.5rem;
     border-radius: 20px;
-    max-width: 90%;
-    margin-left: auto;
-    margin-right: auto;
+    display: inline-block;
+    width: auto;
 }
 
-/* Responsividade */
-/* ========== RESPONSIVIDADE PARA CELULAR ========== */
+/* RESPONSIVIDADE GERAL */
 @media (max-width: 768px) {
-    /* Ajusta o container do cubo */
-    .cube-wrapper {
-        perspective: 800px;
-        margin: 1rem auto;
-        overflow-x: auto;
-        display: flex;
-        justify-content: center;
-    }
-
-    /* CUBO MÁGICO RESPONSIVO */
-.cube-wrapper {
-    perspective: 800px;
-    perspective-origin: 50% 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 1rem auto;
-    width: 100%;
-    overflow-x: auto;
-}
-
-.rubiks-cube {
-    position: relative;
-    width: min(300px, 70vw);
-    height: min(300px, 70vw);
-    transform-style: preserve-3d;
-    transform: rotateX(-20deg) rotateY(30deg);
-    transition: transform 0.3s;
-}
-
-.cubie {
-    position: absolute;
-    width: 33.333%;
-    height: 33.333%;
-    transform-style: preserve-3d;
-    transition: all 0.2s ease;
-}
-
-/* As faces agora usam porcentagem relativa ao cubie */
-.cubie .face {
-    position: absolute;
-    width: 98%;
-    height: 98%;
-    border: 1px solid rgba(0,0,0,0.2);
-    border-radius: 8px;
-    box-shadow: inset 0 0 4px rgba(255,255,255,0.5);
-}
-
-/* Posicionamento das faces (valores em % relativos ao cubie) */
-.cubie .front  { transform: translateZ(50%); }
-.cubie .back   { transform: rotateY(180deg) translateZ(50%); }
-.cubie .right  { transform: rotateY(90deg) translateZ(50%); }
-.cubie .left   { transform: rotateY(-90deg) translateZ(50%); }
-.cubie .top    { transform: rotateX(90deg) translateZ(50%); }
-.cubie .bottom { transform: rotateX(-90deg) translateZ(50%); }
-
-/* Ajuste para telas pequenas */
-@media (max-width: 768px) {
-    .rubiks-cube {
-        width: min(250px, 80vw);
-        height: min(250px, 80vw);
-    }
-    .cube-wrapper {
-        perspective: 600px;
-    }
-}
-@media (max-width: 480px) {
-    .rubiks-cube {
-        width: min(200px, 85vw);
-        height: min(200px, 85vw);
-    }
-}
-
-    /* Ajusta os botões do cubo para não quebrarem */
-    .cube-controls {
-        flex-wrap: wrap;
-        gap: 0.5rem;
-    }
-    .control-group button {
-        padding: 5px 10px;
-        font-size: 0.7rem;
-    }
-
-    /* Ajusta o tabuleiro de xadrez */
     .chessboard {
-        width: 85vw !important;
-        height: 85vw !important;
-        max-width: 400px;
-        max-height: 400px;
+        width: 85vw;
+        height: 85vw;
     }
     .chess-square {
-        font-size: 1.2rem;
+        font-size: 1.5rem;
+    }
+    .control-group button {
+        padding: 6px 12px;
+        font-size: 0.8rem;
     }
 }
 
-/* Para telas muito pequenas (até 480px) */
 @media (max-width: 480px) {
-    .rubiks-cube {
-        width: 150px !important;
-        height: 150px !important;
-        transform: rotateX(-20deg) rotateY(30deg) scale(0.7);
+    .game-section {
+        padding: 1rem;
     }
-    .cubie {
-        width: 50px !important;
-        height: 50px !important;
+    .love-letter {
+        padding: 1rem;
     }
-    .cubie .front  { transform: translateZ(25px); }
-    .cubie .back   { transform: rotateY(180deg) translateZ(25px); }
-    .cubie .right  { transform: rotateY(90deg) translateZ(25px); }
-    .cubie .left   { transform: rotateY(-90deg) translateZ(25px); }
-    .cubie .top    { transform: rotateX(90deg) translateZ(25px); }
-    .cubie .bottom { transform: rotateX(-90deg) translateZ(25px); }
-
     .chess-square {
         font-size: 1rem;
     }
 }
+
 /* CONFETES */
 .confetti {
     position: fixed;
@@ -567,7 +505,6 @@ button:hover {
     }
 }
 
-/* Animações */
 @keyframes fadeUp {
     from {
         opacity: 0;
