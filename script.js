@@ -29,7 +29,11 @@ function unlockSuccess() {
                 startHeartParticles();
                 initChess();
                 initRubikCube();
+                adjustCubeLayout();
                 typeWriterEffect();
+                window.addEventListener('resize', () => setTimeout(() => {
+                    if (cubiesData && cubiesData.length) renderCube();
+                }, 100));
             }, 400);
         }, 200);
     }, 300);
@@ -53,6 +57,7 @@ passwordInput.addEventListener('keypress', (e) => {
 // ======================== PARTÍCULAS DE CORAÇÃO ========================
 function startHeartParticles() {
     const container = document.getElementById('heartParticles');
+    if (!container) return;
     setInterval(() => {
         const heart = document.createElement('div');
         heart.classList.add('heart-particle');
@@ -96,7 +101,7 @@ function typeWriterEffect() {
 // ======================== JOGO DE XADREZ ========================
 let chessBoard = [];
 let selectedRow = null, selectedCol = null;
-let currentTurn = 'white'; // jogador
+let currentTurn = 'white';
 let gameOver = false;
 
 const pieceSymbols = {
@@ -380,10 +385,11 @@ function initChess() {
     currentTurn = 'white';
     gameOver = false;
     renderChessboard();
-    document.getElementById('chessMessage').innerHTML = "";
+    const msgDiv = document.getElementById('chessMessage');
+    if (msgDiv) msgDiv.innerHTML = "";
 }
 
-// ======================== CUBO MÁGICO 3D ========================
+// ======================== CUBO MÁGICO RESPONSIVO ========================
 let cubiesData = [];
 let cubeSolved = false;
 const colorMap = {
@@ -415,15 +421,23 @@ function initRubikCube() {
 
 function renderCube() {
     const container = document.getElementById('rubiksCube');
-    if (!container) return;
+    if (!container || cubiesData.length === 0) return;
+    
+    const cubeSize = container.offsetWidth;
+    if (cubeSize === 0) return;
+    const cubieSize = cubeSize / 3;
+    
     container.innerHTML = '';
     for(let cubie of cubiesData) {
         const div = document.createElement('div');
         div.className = 'cubie';
-        const posX = cubie.x * 100;
-        const posY = cubie.y * 100;
-        const posZ = cubie.z * 100;
+        const posX = cubie.x * cubieSize;
+        const posY = cubie.y * cubieSize;
+        const posZ = cubie.z * cubieSize;
         div.style.transform = `translate3d(${posX}px, ${posY}px, ${posZ}px)`;
+        div.style.width = `${cubieSize}px`;
+        div.style.height = `${cubieSize}px`;
+        
         const faces = ['front','back','right','left','top','bottom'];
         for(let face of faces) {
             const faceDiv = document.createElement('div');
@@ -442,6 +456,8 @@ function renderCube() {
                 faceDiv.style.backgroundColor = '#222';
                 faceDiv.style.opacity = '0.5';
             }
+            faceDiv.style.width = '100%';
+            faceDiv.style.height = '100%';
             div.appendChild(faceDiv);
         }
         container.appendChild(div);
@@ -534,6 +550,29 @@ function setupCubeControls() {
     if (scrambleBtn) scrambleBtn.addEventListener('click', () => { scrambleCube(); });
 }
 
+function adjustCubeLayout() {
+    const cubeWrapper = document.querySelector('.cube-wrapper');
+    const existingInst = document.getElementById('cubeInstruction');
+    if (!existingInst && cubeWrapper) {
+        cubeWrapper.style.marginTop = '1.5rem';
+        const instruDiv = document.createElement('div');
+        instruDiv.id = 'cubeInstruction';
+        instruDiv.style.textAlign = 'center';
+        instruDiv.style.marginTop = '1rem';
+        instruDiv.style.fontSize = '0.9rem';
+        instruDiv.style.color = '#ffc0cb';
+        instruDiv.style.backgroundColor = 'rgba(0,0,0,0.4)';
+        instruDiv.style.padding = '0.5rem';
+        instruDiv.style.borderRadius = '20px';
+        instruDiv.style.display = 'inline-block';
+        instruDiv.style.width = 'auto';
+        instruDiv.innerHTML = '💡 Instrução: Clique nos botões (U, D, L, R, F, B) para girar as faces. Use o apóstrofo (\') para sentido inverso. Embaralhe e tente montar todas as faces com cores sólidas!';
+        cubeWrapper.parentNode.insertBefore(instruDiv, cubeWrapper.nextSibling);
+    }
+    // Força um redesenho inicial
+    setTimeout(() => renderCube(), 50);
+}
+
 // ======================== CONFETES ========================
 function startConfetti() {
     for(let i=0;i<80;i++) {
@@ -549,7 +588,7 @@ function startConfetti() {
     }
 }
 
-// Inicialização dos controles do cubo (após carregar o DOM)
-document.addEventListener('DOMContentLoaded', () => {
+// Inicialização
+window.addEventListener('DOMContentLoaded', () => {
     setupCubeControls();
 });

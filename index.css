@@ -440,26 +440,69 @@ button:hover {
         justify-content: center;
     }
 
-    /* Reduz o tamanho do cubo */
+    /* CUBO MÁGICO RESPONSIVO */
+.cube-wrapper {
+    perspective: 800px;
+    perspective-origin: 50% 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem auto;
+    width: 100%;
+    overflow-x: auto;
+}
+
+.rubiks-cube {
+    position: relative;
+    width: min(300px, 70vw);
+    height: min(300px, 70vw);
+    transform-style: preserve-3d;
+    transform: rotateX(-20deg) rotateY(30deg);
+    transition: transform 0.3s;
+}
+
+.cubie {
+    position: absolute;
+    width: 33.333%;
+    height: 33.333%;
+    transform-style: preserve-3d;
+    transition: all 0.2s ease;
+}
+
+/* As faces agora usam porcentagem relativa ao cubie */
+.cubie .face {
+    position: absolute;
+    width: 98%;
+    height: 98%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 8px;
+    box-shadow: inset 0 0 4px rgba(255,255,255,0.5);
+}
+
+/* Posicionamento das faces (valores em % relativos ao cubie) */
+.cubie .front  { transform: translateZ(50%); }
+.cubie .back   { transform: rotateY(180deg) translateZ(50%); }
+.cubie .right  { transform: rotateY(90deg) translateZ(50%); }
+.cubie .left   { transform: rotateY(-90deg) translateZ(50%); }
+.cubie .top    { transform: rotateX(90deg) translateZ(50%); }
+.cubie .bottom { transform: rotateX(-90deg) translateZ(50%); }
+
+/* Ajuste para telas pequenas */
+@media (max-width: 768px) {
     .rubiks-cube {
-        width: 180px !important;
-        height: 180px !important;
-        transform: rotateX(-20deg) rotateY(30deg) scale(0.8);
+        width: min(250px, 80vw);
+        height: min(250px, 80vw);
     }
-
-    /* Reduz o tamanho de cada cubie */
-    .cubie {
-        width: 60px !important;
-        height: 60px !important;
+    .cube-wrapper {
+        perspective: 600px;
     }
-
-    /* Reposiciona as faces do cubie para o novo tamanho */
-    .cubie .front  { transform: translateZ(30px); }
-    .cubie .back   { transform: rotateY(180deg) translateZ(30px); }
-    .cubie .right  { transform: rotateY(90deg) translateZ(30px); }
-    .cubie .left   { transform: rotateY(-90deg) translateZ(30px); }
-    .cubie .top    { transform: rotateX(90deg) translateZ(30px); }
-    .cubie .bottom { transform: rotateX(-90deg) translateZ(30px); }
+}
+@media (max-width: 480px) {
+    .rubiks-cube {
+        width: min(200px, 85vw);
+        height: min(200px, 85vw);
+    }
+}
 
     /* Ajusta os botões do cubo para não quebrarem */
     .cube-controls {
