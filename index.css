@@ -1,0 +1,509 @@
+/* RESET + GLOBAL */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', 'Poppins', 'Arial', sans-serif;
+    background: linear-gradient(145deg, #0a0a0a 0%, #1a0f1a 100%);
+    min-height: 100vh;
+    color: #f5e6f0;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Importação da fonte Pacifico para a frase do xadrez */
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+/* PARTÍCULAS DE CORAÇÃO (flutuantes) */
+.heart-particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.heart-particle {
+    position: absolute;
+    font-size: 1.2rem;
+    color: #ff99cc;
+    opacity: 0.7;
+    animation: floatHeart 8s linear infinite;
+    user-select: none;
+    text-shadow: 0 0 5px #ff69b4;
+}
+
+@keyframes floatHeart {
+    0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.8;
+    }
+    90% {
+        opacity: 0.6;
+    }
+    100% {
+        transform: translateY(-20vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* GLASSMORPHISM */
+.glass {
+    background: rgba(255, 220, 240, 0.1);
+    backdrop-filter: blur(12px);
+    border-radius: 2rem;
+    border: 1px solid rgba(255, 192, 203, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255,255,255,0.1);
+}
+
+/* TELA DE BLOQUEIO */
+.lock-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, #1a0b13, #050105);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.5s ease;
+}
+
+.lock-container {
+    text-align: center;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(8px);
+    padding: 2rem;
+    border-radius: 3rem;
+    border: 1px solid #ff66aa;
+    box-shadow: 0 0 30px rgba(255, 105, 180, 0.3);
+    width: 90%;
+    max-width: 400px;
+}
+
+.heart-lock {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 1.5rem;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.heart-lock .lock-body {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 50px;
+    background: #ffb6c1;
+    border-radius: 20px 20px 10px 10px;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.2), 0 0 0 3px #ff69b4;
+}
+
+.heart-lock .lock-shackle {
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 35px;
+    height: 40px;
+    border: 6px solid #ffb6c1;
+    border-bottom: none;
+    border-radius: 30px 30px 0 0;
+    box-shadow: 0 -2px 0 #ff69b4;
+}
+
+.heart-lock .heart-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70px;
+    height: 70px;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ff4d6d"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>') no-repeat center;
+    background-size: contain;
+    opacity: 0.9;
+}
+
+.lock-title {
+    font-size: 1.3rem;
+    margin: 1rem 0;
+    letter-spacing: 1px;
+    color: #ffc0cb;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+#passwordInput {
+    padding: 12px;
+    border-radius: 40px;
+    border: none;
+    background: rgba(255,240,245,0.2);
+    color: #fff;
+    text-align: center;
+    font-size: 1rem;
+    backdrop-filter: blur(4px);
+    border: 1px solid #ff99cc;
+}
+
+#passwordInput:focus {
+    outline: none;
+    border-color: #ff69b4;
+    box-shadow: 0 0 10px #ff69b4;
+}
+
+button {
+    background: linear-gradient(135deg, #ff69b4, #ff1493);
+    border: none;
+    padding: 12px 20px;
+    border-radius: 40px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    font-size: 1rem;
+}
+
+button:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 15px #ff69b4;
+}
+
+.lock-message {
+    margin-top: 1rem;
+    font-weight: bold;
+    min-height: 2.5rem;
+}
+
+/* CONTEÚDO PRINCIPAL */
+.main-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1.5rem;
+    position: relative;
+    z-index: 2;
+    transition: all 0.4s;
+}
+
+.hidden {
+    display: none;
+}
+
+.romantic-header {
+    text-align: center;
+    margin: 1rem 0 2rem;
+}
+
+.romantic-header h1 {
+    font-size: clamp(1.4rem, 6vw, 2.5rem);
+    background: linear-gradient(135deg, #ffe6f0, #ffb6c1);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 15px rgba(255,105,180,0.5);
+    letter-spacing: 1px;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.gif-container {
+    margin: 1.5rem auto;
+    max-width: 480px;
+    border-radius: 2rem;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(255,105,180,0.4);
+}
+
+.romantic-gif {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* CARTA DE AMOR */
+.love-letter {
+    margin: 2rem auto;
+    max-width: 800px;
+    padding: 2rem;
+    text-align: center;
+    animation: fadeUp 0.8s ease;
+}
+
+.love-letter h2 {
+    color: #ffb6c1;
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+}
+
+.love-letter p {
+    line-height: 1.7;
+    font-size: 1.1rem;
+    color: #fce4ec;
+}
+
+.signature {
+    margin-top: 1.5rem;
+    font-style: italic;
+    font-weight: bold;
+    color: #ffc0cb;
+}
+
+/* SEÇÃO JOGOS */
+.game-section {
+    margin: 2.5rem auto;
+    padding: 1.8rem;
+    max-width: 1100px;
+    transition: all 0.3s;
+}
+
+.game-section h2 {
+    text-align: center;
+    color: #ffb6c1;
+    margin-bottom: 0.8rem;
+}
+
+/* Frase do xadrez estilizada */
+.chess-instruction {
+    text-align: center;
+    font-family: 'Pacifico', 'Comic Neue', cursive;
+    font-size: 1.2rem;
+    background: linear-gradient(135deg, #ffb6c1, #ff69b4);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    margin: 0.5rem auto 1.5rem;
+    max-width: 90%;
+}
+
+.game-message {
+    text-align: center;
+    margin-top: 1rem;
+    font-weight: bold;
+    color: #ffd966;
+    min-height: 3rem;
+}
+
+/* TABULEIRO DE XADREZ */
+.chessboard-container {
+    display: flex;
+    justify-content: center;
+    overflow-x: auto;
+}
+
+.chessboard {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    width: min(70vh, 80vw);
+    height: min(70vh, 80vw);
+    background-color: #2c1a2c;
+    border: 4px solid #ff99cc;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 0 0 2px #ff69b4, 0 10px 25px rgba(0,0,0,0.3);
+}
+
+.chess-square {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: 0.1s linear;
+    background-size: cover;
+    text-shadow: 0 0 3px black;
+}
+
+.chess-square.light {
+    background-color: #ffe0f0;
+}
+
+.chess-square.dark {
+    background-color: #b35f8a;
+}
+
+.chess-square.selected {
+    box-shadow: inset 0 0 0 3px gold, 0 0 0 2px #ffb347;
+    transform: scale(0.98);
+}
+
+.chess-square.possible-move {
+    position: relative;
+}
+.chess-square.possible-move::after {
+    content: "●";
+    font-size: 1.4rem;
+    color: gold;
+    opacity: 0.8;
+    position: absolute;
+}
+
+/* CUBO MÁGICO 3D */
+.cube-wrapper {
+    perspective: 1200px;
+    perspective-origin: 50% 50%;
+    display: flex;
+    justify-content: center;
+    margin: 1.5rem 0 1rem;
+}
+
+.rubiks-cube {
+    width: 300px;
+    height: 300px;
+    position: relative;
+    transform-style: preserve-3d;
+    transform: rotateX(-20deg) rotateY(30deg);
+    transition: transform 0.3s;
+}
+
+.cubie {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    transform-style: preserve-3d;
+    transition: all 0.2s ease;
+}
+
+.face {
+    position: absolute;
+    width: 98px;
+    height: 98px;
+    border: 1px solid rgba(0,0,0,0.2);
+    box-shadow: inset 0 0 4px rgba(255,255,255,0.5);
+    border-radius: 8px;
+}
+
+.cubie .front  { transform: translateZ(50px); }
+.cubie .back   { transform: rotateY(180deg) translateZ(50px); }
+.cubie .right  { transform: rotateY(90deg) translateZ(50px); }
+.cubie .left   { transform: rotateY(-90deg) translateZ(50px); }
+.cubie .top    { transform: rotateX(90deg) translateZ(50px); }
+.cubie .bottom { transform: rotateX(-90deg) translateZ(50px); }
+
+.cube-controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.control-group {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.scramble-btn {
+    background: #ff66aa;
+    box-shadow: 0 0 8px deeppink;
+}
+
+.cube-instruction {
+    text-align: center;
+    margin-top: 1.2rem;
+    font-size: 0.9rem;
+    color: #ffc0cb;
+    background-color: rgba(0,0,0,0.4);
+    padding: 0.6rem;
+    border-radius: 20px;
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .chessboard {
+        width: 90vw;
+        height: 90vw;
+    }
+    .chess-square {
+        font-size: 1.5rem;
+    }
+    .rubiks-cube {
+        width: 240px;
+        height: 240px;
+    }
+    .cubie {
+        width: 80px;
+        height: 80px;
+    }
+    .cubie .front  { transform: translateZ(40px); }
+    .cubie .back   { transform: rotateY(180deg) translateZ(40px); }
+    .cubie .right  { transform: rotateY(90deg) translateZ(40px); }
+    .cubie .left   { transform: rotateY(-90deg) translateZ(40px); }
+    .cubie .top    { transform: rotateX(90deg) translateZ(40px); }
+    .cubie .bottom { transform: rotateX(-90deg) translateZ(40px); }
+    .control-group button {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .game-section {
+        padding: 1rem;
+    }
+    .love-letter {
+        padding: 1rem;
+    }
+}
+
+/* CONFETES */
+.confetti {
+    position: fixed;
+    width: 10px;
+    height: 20px;
+    background: linear-gradient(45deg, gold, #ff69b4);
+    top: -10px;
+    z-index: 9999;
+    opacity: 0.8;
+    animation: fall linear forwards;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Animações */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.shake {
+    animation: shakeAnim 0.3s ease-in-out 0s 2;
+}
+
+@keyframes shakeAnim {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+    100% { transform: translateX(0); }
+}

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="theme-color" content="#ff69b4">
+    <title>Dia dos Namorados Especial</title>
+    <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+
+    <!-- TELA DE BLOQUEIO -->
+    <div id="lockScreen" class="lock-screen">
+        <div class="lock-container">
+            <div class="heart-lock" id="heartLock">
+                <div class="lock-body"></div>
+                <div class="lock-shackle"></div>
+                <div class="heart-overlay"></div>
+            </div>
+            <p class="lock-title">Digite a senha secreta</p>
+            <div class="input-group">
+                <input type="password" id="passwordInput" placeholder="dd/mm/aaaa" autocomplete="off">
+                <button id="unlockBtn">💖 Desbloquear 💖</button>
+            </div>
+            <p id="lockMessage" class="lock-message"></p>
+        </div>
+    </div>
+
+    <!-- CONTEÚDO PRINCIPAL (inicialmente oculto) -->
+    <div id="mainContent" class="main-content hidden">
+        <!-- Partículas flutuantes (corações) -->
+        <div id="heartParticles" class="heart-particles"></div>
+
+        <!-- Header romântico -->
+        <header class="romantic-header">
+            <h1>Feliz Dia dos Namorados, meu amor! 🌹</h1>
+            <div class="gif-container">
+                <img src="https://i.pinimg.com/originals/ef/f4/be/eff4be08d90db3e8d30a322101e945ae.gif" alt="Romantic GIF" class="romantic-gif">
+            </div>
+        </header>
+
+        <!-- TEXTO DE AMOR ELEGANTE -->
+        <section class="love-letter glass">
+            <div class="letter-content">
+                <h2>Para o amor da minha vida ✨</h2>
+                <p>
+                    Meu amor, cada dia ao seu lado é uma página escrita com felicidade e ternura. 
+                    Sou tão grata por ter você, por seu abraço que me acolhe e seu sorriso que ilumina meus dias. 
+                    Você é minha calmaria, minha alegria, meu presente preferido. 
+                    Agradeço por cada momento, cada risada e cada sonho compartilhado. 
+                    Ao seu lado quero envelhecer, construir memórias, viajar mundos e dividir a vida inteira. 
+                    Te amo infinitamente! 💕
+                </p>
+                <p class="signature">Com todo meu coração, <br> Sua namorada.</p>
+            </div>
+        </section>
+
+        <!-- JOGO 1: XADREZ INTERATIVO -->
+        <section class="game-section glass">
+            <h2>♚ Jogo de Xadrez Romântico ♕</h2>
+            <p class="chess-instruction">Movimente suas peças clicando na peça e depois no destino. Boa sorte, meu amor!</p>
+            <div class="chessboard-container">
+                <div id="chessboard" class="chessboard"></div>
+            </div>
+            <div id="chessMessage" class="game-message"></div>
+        </section>
+
+        <!-- JOGO 2: CUBO MÁGICO 3D -->
+        <section class="game-section glass">
+            <div class="cube-wrapper">
+                <div id="rubiksCube" class="rubiks-cube"></div>
+            </div>
+            <div class="cube-controls">
+                <div class="control-group">
+                    <button data-move="U">▲ U</button>
+                    <button data-move="U'">U' ▼</button>
+                    <button data-move="D">▼ D</button>
+                    <button data-move="D'">D' ▲</button>
+                </div>
+                <div class="control-group">
+                    <button data-move="L">◀ L</button>
+                    <button data-move="L'">L' ▶</button>
+                    <button data-move="R">▶ R</button>
+                    <button data-move="R'">R' ◀</button>
+                </div>
+                <div class="control-group">
+                    <button data-move="F">F 🡒</button>
+                    <button data-move="F'">F' 🡐</button>
+                    <button data-move="B">B 🡐</button>
+                    <button data-move="B'">B' 🡒</button>
+                </div>
+                <button id="scrambleCube" class="scramble-btn">🔀 Embaralhar 🔀</button>
+            </div>
+            <div id="cubeMessage" class="game-message"></div>
+            <div class="cube-instruction" id="cubeInstruction">
+                💡 Instrução: Clique nos botões (U, D, L, R, F, B) para girar as faces. Use o apóstrofo (') para sentido inverso. Embaralhe e tente montar todas as faces com cores sólidas!
+            </div>
+        </section>
+    </div>
+
+    <script src="./script.js"></script>
+</body>
+</html>
